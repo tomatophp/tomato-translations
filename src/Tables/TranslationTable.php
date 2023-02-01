@@ -13,7 +13,8 @@ use Spatie\Permission\Models\Role;
 class TranslationTable extends AbstractTable
 {
     /**
-     * Create a new instance.
+     * Create a new instan        $form .= "                      {{__('".Str::ucfirst(str_replace('_', ' ', $name))."')}}".PHP_EOL;
+ce.
      *
      * @return void
      */
@@ -51,7 +52,7 @@ class TranslationTable extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-            ->withGlobalSearch(label: trans('tomato-admin::global.search'),columns: ['id','name',])
+            ->withGlobalSearch(label: trans('tomato-admin::global.search'),columns: ['id','key',])
             ->bulkAction(
                 label: trans('tomato-admin::global.crud.delete'),
                 each: function (Role $model) {
