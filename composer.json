@@ -5,7 +5,10 @@
     "keywords": [
         "php",
         "laravel",
-        "template"
+        "translations",
+        "translation loader",
+        "translation GUI",
+        "trans"
     ],
     "license": "MIT",
     "autoload": {

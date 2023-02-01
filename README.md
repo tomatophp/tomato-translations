@@ -9,11 +9,6 @@ Database Base Translations Keys with Google Translations API Integration
 ```bash
 composer require tomatophp/tomato-translations
 ```
-after install use this command to install roles and publish assets
-
-```bash
-php artisan tomato-translations:install
-```
 
 ## Support
 
