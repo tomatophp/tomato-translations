@@ -38,7 +38,6 @@ class TomatoTranslationsInstall extends Command
     {
         $this->info('Publish Vendor Assets');
         $this->callSilent('optimize:clear');
-        $this->call('vendor:publish', ['--provider' => 'TomatoPHP\TomatoTranslations\TomatoTranslationsServiceProvider']);
         $this->yarnCommand(['install']);
         $this->yarnCommand(['build']);
         $this->artisanCommand(["migrate"]);
