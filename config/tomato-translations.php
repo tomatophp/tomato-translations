@@ -12,6 +12,8 @@ return [
     "paths" => [
         app_path(),
         resource_path('views'),
+        base_path('Modules')
+
     ],
 
     /*
@@ -81,4 +83,3 @@ return [
     "google_key" => env('GOOGLE_API', null)
 
 ];
-
