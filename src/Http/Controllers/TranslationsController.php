@@ -77,7 +77,6 @@ class TranslationsController extends Controller
     public function export(Request $request): BinaryFileResponse
     {
         $response = Excel::download(new TranslationsExport, 'translations.xlsx', \Maatwebsite\Excel\Excel::XLSX);
-        ob_end_clean();
         return $response;
     }
 

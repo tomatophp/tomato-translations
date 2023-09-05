@@ -1,11 +1,5 @@
-<x-splade-modal class="font-main">
-    <h1 class="text-2xl font-bold mb-4">
-        {{trans('tomato-admin::global.crud.edit')}} {{trans('tomato-translations::global.single')}} #{{$model['id']}}
-    </h1>
-
-
-    <x-splade-form class="flex flex-col space-y-4 mb-4" action="{{route('admin.translations.update', $model['id'])}}" method="post" :default="$model">
-
+<x-tomato-admin-container label="{{trans('tomato-admin::global.crud.edit')}} {{trans('tomato-translations::global.single')}} #{{$model['id']}}">
+    <x-splade-form class="flex flex-col gap-4" action="{{route('admin.translations.update', $model['id'])}}" method="post" :default="$model">
         <x-splade-textarea class="w-full" name="key" type="text"  placeholder="{{trans('tomato-translations::global.key')}}" label="{{trans('tomato-translations::global.key')}}" :disabled="true"/>
         @php
             $jsonFolder = File::files(lang_path());
@@ -17,6 +11,10 @@
 
             <x-splade-textarea class="w-full" name="{{$langName}}" type="text"  placeholder="{{trans('tomato-translations::global.'.$langName)}}" label="{{trans('tomato-translations::global.'.$langName)}}" />
         @endforeach
-        <x-splade-submit label="{{trans('tomato-admin::global.crud.update')}} {{trans('tomato-translations::global.single')}}" :spinner="true" />
+
+        <div class="flex justify-start gap-2 pt-3">
+            <x-tomato-admin-submit  label="{{__('Save')}}" :spinner="true" />
+            <x-tomato-admin-button secondary :href="route('admin.translations.index')" label="{{__('Cancel')}}"/>
+        </div>
     </x-splade-form>
-</x-splade-modal>
+</x-tomato-admin-container>

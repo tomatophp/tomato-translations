@@ -35,10 +35,11 @@
         }
     ],
     "require": {
-        "php": "^8.0.2",
-        "tomatophp/console-helpers": "^1.0",
-        "tomatophp/tomato-roles": "^1.0",
+        "php": "^8.0|^8.1",
+        "tomatophp/console-helpers": "^1.1",
+        "tomatophp/tomato-roles": "^1.1",
         "calebporzio/sushi": "^2.4",
-        "google/cloud-translate": "^1.12"
+        "google/cloud-translate": "^1.12",
+        "spatie/laravel-translatable": "^6.5"
     }
 }

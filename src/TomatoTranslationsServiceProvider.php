@@ -3,11 +3,12 @@
 namespace TomatoPHP\TomatoTranslations;
 
 use Illuminate\Support\ServiceProvider;
+use TomatoPHP\TomatoAdmin\Facade\TomatoMenu;
+use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
 use TomatoPHP\TomatoPHP\Services\Menu\TomatoMenuRegister;
 use TomatoPHP\TomatoRoles\Services\Permission;
 use TomatoPHP\TomatoRoles\Services\TomatoRoles;
-use TomatoPHP\TomatoTranslations\Menus\TranslationMenu;
-
+use TomatoPHP\TomatoTranslations\Views\Translation;
 
 class TomatoTranslationsServiceProvider extends ServiceProvider
 {
@@ -53,10 +54,24 @@ class TomatoTranslationsServiceProvider extends ServiceProvider
         //Register Routes
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
-        TomatoMenuRegister::registerMenu(TranslationMenu::class);
-
         $this->registerPermissions();
 
+        $this->loadViewComponentsAs('tomato', [
+            Translation::class
+        ]);
+
+    }
+
+
+    public function boot(): void
+    {
+        TomatoMenu::register([
+            Menu::make()
+                ->group(__('Settings'))
+                ->label(trans('tomato-translations::global.title'))
+                ->icon("bx bx-globe")
+                ->route("admin.translations.index"),
+        ]);
     }
 
     /**
@@ -64,63 +79,61 @@ class TomatoTranslationsServiceProvider extends ServiceProvider
      */
     private function registerPermissions(): void
     {
-        TomatoRoles::register(Permission::make()
-            ->name('admin.translations.index')
-            ->guard('web')
-            ->group('translations')
-        );
+        if(class_exists(TomatoRoles::class)) {
+            TomatoRoles::register(Permission::make()
+                ->name('admin.translations.index')
+                ->guard('web')
+                ->group('translations')
+            );
 
-        TomatoRoles::register(Permission::make()
-            ->name('admin.translations.scan')
-            ->guard('web')
-            ->group('translations')
-        );
+            TomatoRoles::register(Permission::make()
+                ->name('admin.translations.scan')
+                ->guard('web')
+                ->group('translations')
+            );
 
-        TomatoRoles::register(Permission::make()
-            ->name('admin.translations.export')
-            ->guard('web')
-            ->group('translations')
-        );
+            TomatoRoles::register(Permission::make()
+                ->name('admin.translations.export')
+                ->guard('web')
+                ->group('translations')
+            );
 
-        TomatoRoles::register(Permission::make()
-            ->name('admin.translations.importView')
-            ->guard('web')
-            ->group('translations')
-        );
+            TomatoRoles::register(Permission::make()
+                ->name('admin.translations.importView')
+                ->guard('web')
+                ->group('translations')
+            );
 
-        TomatoRoles::register(Permission::make()
-            ->name('admin.translations.import')
-            ->guard('web')
-            ->group('translations')
-        );
+            TomatoRoles::register(Permission::make()
+                ->name('admin.translations.import')
+                ->guard('web')
+                ->group('translations')
+            );
 
-        TomatoRoles::register(Permission::make()
-            ->name('admin.translations.auto')
-            ->guard('web')
-            ->group('translations')
-        );
+            TomatoRoles::register(Permission::make()
+                ->name('admin.translations.auto')
+                ->guard('web')
+                ->group('translations')
+            );
 
-        TomatoRoles::register(Permission::make()
-            ->name('admin.translations.edit')
-            ->guard('web')
-            ->group('translations')
-        );
+            TomatoRoles::register(Permission::make()
+                ->name('admin.translations.edit')
+                ->guard('web')
+                ->group('translations')
+            );
 
-        TomatoRoles::register(Permission::make()
-            ->name('admin.translations.update')
-            ->guard('web')
-            ->group('translations')
-        );
+            TomatoRoles::register(Permission::make()
+                ->name('admin.translations.update')
+                ->guard('web')
+                ->group('translations')
+            );
 
-        TomatoRoles::register(Permission::make()
-            ->name('admin.translations.destroy')
-            ->guard('web')
-            ->group('translations')
-        );
+            TomatoRoles::register(Permission::make()
+                ->name('admin.translations.destroy')
+                ->guard('web')
+                ->group('translations')
+            );
+        }
     }
 
-    public function boot(): void
-    {
-        //you boot methods here
-    }
 }
