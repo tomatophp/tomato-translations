@@ -3,6 +3,7 @@
 namespace TomatoPHP\TomatoTranslations\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use TomatoPHP\ConsoleHelpers\Traits\HandleFiles;
 use TomatoPHP\ConsoleHelpers\Traits\RunCommand;
 
@@ -45,6 +46,9 @@ class TomatoTranslationsInstall extends Command
         $this->callSilent('optimize:clear');
         $this->artisanCommand(["migrate"]);
         $this->artisanCommand(["optimize:clear"]);
+        if(!File::exists(base_path('lang'))){
+            File::makeDirectory(base_path('lang'));
+        }
         $this->handelFile('lang/ar.json', lang_path('ar.json'));
         $this->handelFile('lang/en.json', lang_path('en.json'));
         $this->info('Tomato Translations installed successfully.');
