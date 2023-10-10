@@ -11,7 +11,8 @@ return [
     "export" => "Export",
     "ar" => "Arabic",
     "en" => "English",
-    "id" => "ID",
+	"fr" => "French",
+	"id" => "ID",
     "key" => "Key",
     "translate" => "Translate",
     "message" => [
