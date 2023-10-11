@@ -24,7 +24,8 @@ return [
     */
     "locals" => [
         "en" => "English",
-        "ar" => "Arabic"
+        "ar" => "Arabic",
+        'fr' => 'French',
     ],
 
     /*
@@ -48,6 +49,7 @@ return [
     "switcher" => [
         "ar",
         "en",
+        'fr'
     ],
 
     /*
