@@ -51,6 +51,7 @@ class TomatoTranslationsInstall extends Command
         }
         $this->handelFile('lang/ar.json', lang_path('ar.json'));
         $this->handelFile('lang/en.json', lang_path('en.json'));
+        $this->handelFile('lang/fr.json', lang_path('fr.json'));
         $this->info('Tomato Translations installed successfully.');
     }
 }
