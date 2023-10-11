@@ -40,6 +40,7 @@ trait HandelTranslationInput
         foreach ($fileds as $filed){
             $model->{$filed.'_tomato_translations_ar'} = $model->getTranslation($filed, 'ar');
             $model->{$filed.'_tomato_translations_en'} = $model->getTranslation($filed, 'en');
+            $model->{$filed.'_tomato_translations_fr'} = $model->getTranslation($filed, 'fr');
         }
 
         return $model;

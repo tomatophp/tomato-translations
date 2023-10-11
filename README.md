@@ -10,6 +10,11 @@ Database Base Translations Keys with Google Translations API Integration
 composer require tomatophp/tomato-translations
 ```
 
+## Languages supported
+- English
+- Arabic
+- French
+
 ## Support
 
 you can join our discord server to get support [TomatoPHP](https://discord.gg/VZc8nBJ3ZU)
