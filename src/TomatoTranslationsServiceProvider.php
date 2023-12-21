@@ -67,7 +67,7 @@ class TomatoTranslationsServiceProvider extends ServiceProvider
     {
         TomatoMenu::register([
             Menu::make()
-                ->group(__('Settings'))
+                ->group(__('Tools'))
                 ->label(trans('tomato-translations::global.title'))
                 ->icon("bx bx-globe")
                 ->route("admin.translations.index"),
