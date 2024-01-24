@@ -15,6 +15,7 @@ class Translation extends Component
         public string $vModel = '',
         public string $type = 'text',
         public string $label = '',
+        public string $placeholder = '',
         public string $validationKey = '',
         public bool $showErrors = true,
         public string $prepend = '',
@@ -22,9 +23,16 @@ class Translation extends Component
         public string $help = '',
         public bool $alwaysEnablePrepend = false,
         public bool $alwaysEnableAppend = false,
+        public bool $textarea = false,
+        public bool $rich = false,
     )
     {
-
+        if($this->textarea){
+            $this->type = 'textarea';
+        }
+        if($this->rich){
+            $this->type = 'rich';
+        }
         Form::allowAttribute($name);
     }
 
