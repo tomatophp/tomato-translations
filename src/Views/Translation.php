@@ -15,6 +15,7 @@ class Translation extends Component
         public string $vModel = '',
         public string $type = 'text',
         public string $label = '',
+        public string $placeholder = '',
         public string $validationKey = '',
         public bool $showErrors = true,
         public string $prepend = '',
