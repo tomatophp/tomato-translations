@@ -23,9 +23,16 @@ class Translation extends Component
         public string $help = '',
         public bool $alwaysEnablePrepend = false,
         public bool $alwaysEnableAppend = false,
+        public bool $textarea = false,
+        public bool $rich = false,
     )
     {
-
+        if($this->textarea){
+            $this->type = 'textarea';
+        }
+        if($this->rich){
+            $this->type = 'rich';
+        }
         Form::allowAttribute($name);
     }
 
