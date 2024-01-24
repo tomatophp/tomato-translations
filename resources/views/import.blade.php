@@ -1,13 +1,11 @@
-<x-splade-modal class="font-main">
-    <h1 class="text-2xl font-bold mb-4">
-        {{trans('tomato-translations::global.import')}}
-    </h1>
+<x-tomato-admin-container :label="__('Import Translations')">
+    <x-splade-form class="flex flex-col gap-4" action="{{route('admin.translations.import')}}" method="post">
 
+        <x-splade-file class="w-full" name="excel"  placeholder="{{__('Upload Or Drop your excel file here')}}"  filepond/>
 
-    <x-splade-form class="flex flex-col space-y-4 mb-4" action="{{route('admin.translations.import')}}" method="post">
-
-        <x-splade-file class="w-full" name="excel"  placeholder="{{trans('tomato-translations::global.excel')}}"  filepond/>
-
-        <x-splade-submit label="{{trans('tomato-translations::global.import')}}" :spinner="true" />
+        <div class="flex justify-start gap-4">
+            <x-tomato-admin-submit label="{{__('Import')}}" :spinner="true" />
+            <x-tomato-admin-button secondary @click.prevent="modal.close" type="button" :label="__('Cancel')"/>
+        </div>
     </x-splade-form>
-</x-splade-modal>
+</x-tomato-admin-container>
