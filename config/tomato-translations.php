@@ -79,6 +79,8 @@ return [
 
     "auto" => true,
 
-    "google_key" => env('GOOGLE_API', null)
+    "google_key" => env('GOOGLE_API', null),
+
+    "allow_gui" => true
 
 ];
