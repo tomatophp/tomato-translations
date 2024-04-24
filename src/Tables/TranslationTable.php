@@ -66,7 +66,7 @@ ce.
             ->defaultSort('id')
             ->column(key: "id",label: trans('tomato-translations::global.id'), sortable: true, hidden: true)
             ->column(key: "key",label: trans('tomato-translations::global.key'), sortable: true)
-            ->column(key: 'actions',label: trans('tomato-roles::global.roles.actions'))
+            ->column(key: 'actions',label: trans('tomato-admin::global.actions'))
             ->paginate(15);
     }
 }

@@ -56,32 +56,6 @@ class SaveScan
                 }
             }
         }
-        //Get Packages JSON Translations
-        $packageDirectory = File::directories(base_path('vendor'));
-        $packageLangPath = [];
-        foreach ($packageDirectory as $getVendor){
-            $vendor = File::directories($getVendor);
-            foreach ($vendor as $package){
-                $langOnBaseDire = File::exists($package.'/lang');
-                if(!$langOnBaseDire){
-                    $jsonFileExists = File::exists($package.'/resources/lang');
-                    if($jsonFileExists){
-                        $packageLangPath[] = $package.'/resources/lang';
-                    }
-                }
-                else {
-                    $packageLangPath[] = $package.'/lang';
-                }
-            }
-        }
-        foreach ($packageLangPath as $langPath){
-            $checkIfThisPathHasJson = File::files($langPath);
-            foreach ($checkIfThisPathHasJson as $jsonLangFile){
-                if(Str::contains($jsonLangFile, '.json')){
-                    $jsonFolder[] = $jsonLangFile;
-                }
-            }
-        }
         $collectiveJsonArray = [];
         foreach($jsonFolder as $getLangName){
             $currentLang = Str::remove('.json', $getLangName->getFilename());

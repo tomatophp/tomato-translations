@@ -147,6 +147,12 @@ class TranslationsController extends Controller
         $scan = new SaveScan();
         $scan->save();
 
+        $cachePath = storage_path('framework/cache/sushi-tomato-p-h-p-tomato-translations-models-translation.sqlite');
+        $file = File::exists($cachePath);
+        if($file){
+            File::delete($cachePath);
+        }
+
         Toast::title(trans('tomato-translations::global.message.scan'))->success()->autoDismiss(2);
         return redirect()->route('admin.translations.index');
 
