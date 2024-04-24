@@ -3,6 +3,7 @@
 namespace TomatoPHP\TomatoTranslations\Services;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use TomatoPHP\TomatoTranslations\Models\Translation;
 
 class SaveScan
@@ -27,17 +28,79 @@ class SaveScan
 
         $collectKeys = collect([]);
         $__->each(function ($default) use ($collectKeys) {
-            if(!Translation::where('key', $default)->first() && ((!str_contains($default, '{{')) && (!str_contains($default, '}}')) && (!str_contains($default, '::'))  && (!str_contains($default, '.$')))){
+            if(((!str_contains($default, '{{')) && (!str_contains($default, '}}')) && (!str_contains($default, '::'))  && (!str_contains($default, '.$')))){
                 $collectKeys->put($default, $default);
             }
         });
 
         $jsonFolder = File::files(lang_path());
+        $moduleDirectory = File::directories(base_path('Modules'));
+        $moduleLangPath = [];
+        foreach ($moduleDirectory as $module){
+            $langOnBaseDire = File::exists($module.'/lang');
+            if(!$langOnBaseDire){
+                $jsonFileExists = File::exists($module.'/resources/lang');
+                if($jsonFileExists){
+                    $moduleLangPath[] = $module.'/resources/lang';
+                }
+            }
+            else {
+                $moduleLangPath[] = $module.'/lang';
+            }
+        }
+        foreach ($moduleLangPath as $langPath){
+            $checkIfThisPathHasJson = File::files($langPath);
+            foreach ($checkIfThisPathHasJson as $jsonLangFile){
+                if(Str::contains($jsonLangFile, '.json')){
+                    $jsonFolder[] = $jsonLangFile;
+                }
+            }
+        }
+        //Get Packages JSON Translations
+        $packageDirectory = File::directories(base_path('vendor'));
+        $packageLangPath = [];
+        foreach ($packageDirectory as $getVendor){
+            $vendor = File::directories($getVendor);
+            foreach ($vendor as $package){
+                $langOnBaseDire = File::exists($package.'/lang');
+                if(!$langOnBaseDire){
+                    $jsonFileExists = File::exists($package.'/resources/lang');
+                    if($jsonFileExists){
+                        $packageLangPath[] = $package.'/resources/lang';
+                    }
+                }
+                else {
+                    $packageLangPath[] = $package.'/lang';
+                }
+            }
+        }
+        foreach ($packageLangPath as $langPath){
+            $checkIfThisPathHasJson = File::files($langPath);
+            foreach ($checkIfThisPathHasJson as $jsonLangFile){
+                if(Str::contains($jsonLangFile, '.json')){
+                    $jsonFolder[] = $jsonLangFile;
+                }
+            }
+        }
+        $collectiveJsonArray = [];
         foreach($jsonFolder as $getLangName){
-            $fileContent = json_decode(File::get(lang_path($getLangName->getFilename())));
+            $currentLang = Str::remove('.json', $getLangName->getFilename());
+            if(!isset($collectiveJsonArray[$currentLang])){
+                $collectiveJsonArray[$currentLang] = [];
+            }
+            $fileContent = json_decode(File::get($getLangName->getRealPath()));
             $jsonCollection = collect($fileContent);
-            $lastJson = array_merge($jsonCollection->toArray(), $collectKeys->toArray());
-            File::put(lang_path($getLangName->getFilename()), json_encode($lastJson, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+            $collectiveJsonArray[$currentLang] = array_merge($collectiveJsonArray[$currentLang], $jsonCollection->toArray());
+        }
+
+        foreach ($collectiveJsonArray as $lang=>$value){
+            foreach ($collectKeys as $key=>$langItem){
+                if(!isset($collectiveJsonArray[$lang][$key])){
+                    $collectiveJsonArray[$lang][$key] = $key;
+                }
+            }
+
+            File::put(lang_path($lang.'.json'), json_encode($collectiveJsonArray[$lang], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
         }
     }
 
