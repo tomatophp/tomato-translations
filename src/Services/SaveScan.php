@@ -56,6 +56,29 @@ class SaveScan
                 }
             }
         }
+        //Get Packages JSON Translations
+        $packageLangPath = [];
+        $vendor = File::directories(base_path('vendor/tomatophp'));
+        foreach ($vendor as $package){
+            $langOnBaseDire = File::exists($package.'/lang');
+            if(!$langOnBaseDire){
+                $jsonFileExists = File::exists($package.'/resources/lang');
+                if($jsonFileExists){
+                    $packageLangPath[] = $package.'/resources/lang';
+                }
+            }
+            else {
+                $packageLangPath[] = $package.'/lang';
+            }
+        }
+        foreach ($packageLangPath as $langPath){
+            $checkIfThisPathHasJson = File::files($langPath);
+            foreach ($checkIfThisPathHasJson as $jsonLangFile){
+                if(Str::contains($jsonLangFile, '.json')){
+                    $jsonFolder[] = $jsonLangFile;
+                }
+            }
+        }
         $collectiveJsonArray = [];
         foreach($jsonFolder as $getLangName){
             $currentLang = Str::remove('.json', $getLangName->getFilename());
@@ -69,7 +92,7 @@ class SaveScan
 
         foreach ($collectiveJsonArray as $lang=>$value){
             foreach ($collectKeys as $key=>$langItem){
-                if(!isset($collectiveJsonArray[$lang][$key])){
+                if(!isset($collectiveJsonArray[$lang][$key]) && $key !== 'id'){
                     $collectiveJsonArray[$lang][$key] = $key;
                 }
             }

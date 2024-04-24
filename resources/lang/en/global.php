@@ -10,6 +10,7 @@ return [
     "import" => "Import",
     "export" => "Export",
     "ar" => "Arabic",
+    "de" => "German",
     "en" => "English",
     "id" => "ID",
     "key" => "Key",
