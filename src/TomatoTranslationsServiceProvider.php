@@ -17,6 +17,7 @@ class TomatoTranslationsServiceProvider extends ServiceProvider
         //Register generate command
         $this->commands([
            \TomatoPHP\TomatoTranslations\Console\TomatoTranslationsInstall::class,
+           \TomatoPHP\TomatoTranslations\Console\TomatoTranslationsScanPath::class,
         ]);
 
         //Register Config file

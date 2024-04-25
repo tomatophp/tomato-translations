@@ -2,6 +2,9 @@
     <x-slot:header>
         {{trans('tomato-translations::global.title')}}
     </x-slot:header>
+    <x-slot:icon>
+        bx bx-globe
+    </x-slot:icon>
     <x-slot:buttons>
         <x-tomato-admin-button :href="route('admin.translations.scan')" type="link">
             {{trans('tomato-translations::global.scan')}}
